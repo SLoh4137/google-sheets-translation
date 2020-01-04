@@ -9,19 +9,19 @@ from google.cloud import translate_v2
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-# The ID and range of a sample spreadsheet.
+# The ID and range of the spreadsheet.
 SPREADSHEET_ID = '1BWzfR4BuTKvrAZxqAlBzT4hrhOgXRCK_e38XQhlB8AI'
 READ_RANGE = 'Translation!A1:A200'
 WRITE_RANGE = 'Translation!B1:B200'
 
-# Index of columns in spreadsheet
-INPUT_INDEX = 0
-TRANSLATED_INDEX = 1
-
 def translate(values):
+    '''
+    Takes in a list of values to translate. Joins them into
+    one string using the ** delimeter to reduce network traffic
+    Splits the resulting translated text back into a list.
+    '''
     translate_client = translate_v2.Client()
     text = '**'.join(values)
-    print(text)
     result = translate_client.translate(text, target_language="zh")
 
     return result['translatedText'].split("**")
@@ -55,16 +55,13 @@ def main():
                                 range=READ_RANGE, majorDimension="COLUMNS").execute()
     values = result.get('values', [])
 
-    print(values)
 
     # Transformation
     translated = translate(values[0])
 
-    print(translated)
-
     # Writing to sheet       
     write_body = {
-        'values': [translated],
+        'values': [translated], # Put into another list since required in [[vals]] format
         'majorDimension': "COLUMNS",
     }
 
