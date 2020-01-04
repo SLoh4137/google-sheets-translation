@@ -3,7 +3,7 @@ Translating strings in a Google Sheet document into another language. Outputs to
 
 Uses the Google Sheet API and the Google Cloud Translation APIs
 
-I realized halfway that you can just use the `=GOOGLETRANSLATE` formula in Google Sheets to achieve the same thing `¯\_(ツ)_/¯`
+I realized halfway that you can just use the [`=GOOGLETRANSLATE`](https://jakemiller.net/translate-in-google-sheets/) formula in Google Sheets to achieve the same thing ```¯\_(ツ)_/¯```
 
 
 [Reading & Writing Cell Values](https://developers.google.com/sheets/api/guides/values)
